@@ -36,7 +36,7 @@
     <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
   </div>
   <div layout="row" layout-align="space-around start" layout-wrap>
-    <appdea-view ng-animate="'repeat'" on-edit="vm.edit" on-delete="vm.remove" ng-hide="vm.loading" ng-repeat="appdea in vm.appdeas track by appdea.id"
+    <appdea-view on-edit="vm.edit" on-delete="vm.remove" ng-hide="vm.loading" ng-repeat="appdea in vm.appdeas"
     ng-model="appdea" flex="33" flex-sm="100" flex-md="50"></appdea-view>
   </div>
 </div>

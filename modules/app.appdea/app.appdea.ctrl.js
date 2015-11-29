@@ -39,12 +39,16 @@
       }
 
       vm.add = function () {
+        var timestamp = Date.now() / 1000;
+        vm.newAppdea.date_created = timestamp;
+        vm.newAppdea.date_updated = timestamp;
+        vm.appdeas.unshift(vm.newAppdea);
         APIService.createAppdea(vm.newAppdea)
           .then(function (response) {
+            vm.newAppdea.id = response.data.id;
+            vm.reset();
             console.log('added', response.data);
           });
-        vm.appdeas.unshift(vm.newAppdea);
-        vm.reset();
       }
 
       vm.update = function (appdea) {
@@ -103,7 +107,7 @@
         vm.newAppdea = { status: 0 };
         if (vm.appdeaCreateForm) {
           vm.appdeaCreateForm.$setPristine();
-          vm.appdeaCreateForm.$setValidity();
+          // vm.appdeaCreateForm.$setValidity();
           vm.appdeaCreateForm.$setUntouched();
         }
       }
