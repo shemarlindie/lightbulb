@@ -41,9 +41,9 @@
       vm.add = function () {
         APIService.createAppdea(vm.newAppdea)
           .then(function (response) {
-            vm.appdeas.unshift(response.data);
             console.log('added', response.data);
           });
+        vm.appdeas.unshift(vm.newAppdea);
         vm.reset();
       }
 
