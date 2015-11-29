@@ -14,7 +14,7 @@ Run these commands in the projects root directory:
 To compile:
 
 * gulp less
-OR
+* [OR]
 * gulp
 
 The latter will watch for changes and automatically recompile 'style.less'
