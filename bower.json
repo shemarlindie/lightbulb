@@ -23,6 +23,7 @@
     "angular-ui-router": "~0.2.15",
     "angular-moment": "1.0.0-beta.3",
     "moment": "~2.10.6",
-    "animate.css": "~3.4.0"
+    "animate.css": "~3.4.0",
+    "angular-sanitize": "~1.4.8"
   }
 }

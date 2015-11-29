@@ -51,7 +51,7 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 1;
 }
 
 .footer-fixed {
@@ -157,12 +157,6 @@ md-toolbar, footer {
   animation-delay: 1s;
 }
 
-.ng-enter {
-  z-index: 98;
-}
-.ng-leave {
-  z-index: 97;
-}
 .animate-fade.ng-enter {
   animation: fadeIn 1s;
 }
@@ -170,6 +164,46 @@ md-toolbar, footer {
   animation: fadeOut 1s;
 }
 
+md-input-container textarea {
+  transition: height ease 0.3s;
+}
+
+appdea-view.ng-move,
+appdea-view.ng-enter,
+appdea-view.ng-leave {
+  transition: all ease 0.5s;
+}
+
+appdea-view.ng-enter {
+  opacity:0;
+  transform: scale(0.5) translateY(-500px);
+}
+
+appdea-view.ng-enter.ng-enter-active {
+  opacity:1;
+  transform: scale(1) translateY(0);
+}
+
+appdea-view.ng-leave {
+  opacity:1;
+  transform: scale(1) translateY(0);
+}
+
+appdea-view.ng-leave.ng-leave-active {
+  opacity:0;
+  transform: scale(0.5) translateY(200px);
+}
+
+
+// appdea-view.ng-move{
+//   transform: scale(0.1);
+//   opacity:0;
+// }
+
+// appdea-view.ng-move.ng-move-active{
+//   transform: scale(1);
+//   opacity:1;
+// }
 
 
 @media (max-width: 599px) {

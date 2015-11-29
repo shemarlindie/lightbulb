@@ -3,6 +3,6 @@
   'use strict';
 
   // MODULE DEFINITION
-  angular.module('app', ['app.api', 'app.appdea', 'ui.router', 'ngMaterial', 'ngAnimate', 'ngAria']);
+  angular.module('app', ['app.api', 'app.appdea', 'ui.router', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngSanitize']);
   
 })(angular);
