@@ -19,6 +19,10 @@ To compile:
 
 The latter will watch for changes and automatically recompile 'style.less'
 
+#### Database ####
+* Import the SQL file at "database/lightbulb75.sql"
+* Update the DB connection details at "api/db.inc.php"
+
 
 #### NOTE: ####
 * You must have Node and NPM installed to run these commands
