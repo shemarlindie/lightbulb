@@ -26,4 +26,4 @@ The latter will watch for changes and automatically recompile 'style.less'
 
 #### NOTE: ####
 * You must have Node and NPM installed to run these commands
-* All commands must be ran from the projects root directory
+* All commands must be run from the projects root directory
