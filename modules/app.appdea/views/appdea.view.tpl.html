@@ -1,0 +1,20 @@
+<md-card>
+  <md-toolbar class="md-hue-2">
+    <div class="md-toolbar-tools" layout="row">
+      <div ng-bind="appdea.title" title="{{appdea.title}}" class="text-ellipsis" flex></div>
+      <div>
+        <md-button ng-click="onDelete($event, appdea)" class="md-icon-button no-margin"><md-icon>delete</md-icon></md-button>
+        <md-button ng-click="onEdit($event, appdea)" class="md-icon-button no-margin"><md-icon>edit</md-icon></md-button>
+      </div>
+    </div>
+  </md-toolbar>
+  <md-card-content>
+    <div ng-bind="appdea.description"></div>
+    <div class="m-t-md text-sm" layout="row" layout-sm="column">
+      <div class="text-muted" am-time-ago="appdea.date_updated | amFromUnix" flex></div>
+      <div layout="row" layout-align-sm="start start" layout-align="end end" flex>
+        <span class="text-muted" ng-bind="appdea.status | status | uppercase"></span>        
+      </div>
+    </div>
+  </md-card-content>
+</md-card>

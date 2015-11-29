@@ -1,0 +1,28 @@
+{
+  "name": "Lightbulb75",
+  "authors": [
+    "Shemar Lindie <shemarlindie@gmail.com>"
+  ],
+  "description": "A repository of V75 app ideas",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "font-awesome": "~4.5.0",
+    "angular-material": "1.0.0-rc5",
+    "angular-ui-router": "~0.2.15",
+    "angular-moment": "1.0.0-beta.3",
+    "moment": "~2.10.6",
+    "animate.css": "~3.4.0"
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-controller="AppCtrl as vm">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Lightbulb75 by V75 Apps</title>
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" />
+  <link rel="stylesheet" href="bower_components/animate.css/animate.min.css" />
+  <link rel="stylesheet" href="css/material-icons.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body ng-cloak>
+  <md-toolbar class="md-hue-2 toolbar-fixed animated fadeInDown">
+    <div class="md-toolbar-tools" layout="row" layout-align="center center">
+      <div layout="row" layout-align="center center" class="app-header-title">
+        <div ng-hide="vm.$mdMedia('sm')">L</div>
+        <div class="material-icons text-accent icon">lightbulb_outline</div>
+        <div ng-hide="vm.$mdMedia('sm')" class="spacy">ghtbulb</div>
+        <div><code class="v75"><b>75</b></code></div>
+      </div>
+    </div>
+  </md-toolbar>
+  <md-content id="app-view" class="md-hue-1 feed-padding-h">
+    <div class="animate-fade" ui-view></div>
+    <footer class="footer-fixed animated fadeIn" layout="row" layout-align="center center">
+      <div class="text-center">
+        <b>Lightbulb75</b>&nbsp; by <a href="http://version75.com">V75 Apps</a> - &copy; 2015
+      </div>
+    </footer>
+  </md-content>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-material/angular-material.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/angular-moment/angular-moment.js"></script>
+  <script src="modules/app.api/app.api.module.js"></script>
+  <script src="modules/app.api/app.api.service.js"></script>
+  <script src="modules/app.appdea/app.appdea.module.js"></script>
+  <script src="modules/app.appdea/app.appdea.ctrl.js"></script>
+  <script src="modules/app.appdea/directives/app.appdea.view.js"></script>
+  <script src="modules/app/app.module.js"></script>
+  <script src="modules/app/app.ctrl.js"></script>
+  <script src="modules/app/app.filters.js"></script>
+  <script src="modules/app/app.config.theme.js"></script>
+  <script src="modules/app/app.config.router.js"></script>
+</body>
+
+</html>
