@@ -7,7 +7,7 @@
 
     .run(function () {
       // remove preloader
-      $('#preloader').fadeOut(500, function () {
+      $('#preloader').fadeOut(1000, function () {
         $(this).remove();
       });
     });
