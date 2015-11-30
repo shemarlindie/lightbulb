@@ -11,25 +11,46 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body ng-cloak>
-  <md-toolbar class="md-hue-2 toolbar-fixed animated fadeInDown">
-    <div class="md-toolbar-tools" layout="row" layout-align="center center">
-      <div layout="row" layout-align="center center" class="app-header-title">
-        <div ng-hide="vm.$mdMedia('sm')">L</div>
-        <div class="material-icons text-accent icon">lightbulb_outline</div>
-        <div ng-hide="vm.$mdMedia('sm')" class="spacy">ghtbulb</div>
-        <div><code class="v75"><b>75</b></code></div>
+<body>
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <style>
+      #preloader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        background-color: #fff;
+      }
+      
+      .text-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      
+      .loader-text {
+        position: relative;
+        top: 50%;
+        margin-top: -40px;
+        line-height: 40px;
+        color: #777;
+        padding: 0 1em;
+        text-align: center;
+      }
+    </style>
+    <div class="text-wrapper">
+      <div class="loader-text">
+        One moment please...
+        <br />Loading awesomeness. ;)
       </div>
     </div>
-  </md-toolbar>
-  <md-content id="app-view" class="md-hue-1 feed-padding-h">
-    <div class="animate-fade" ui-view></div>
-    <footer class="footer-fixed animated fadeIn" layout="row" layout-align="center center">
-      <div class="text-center">
-        <b>Lightbulb75</b>&nbsp; by <a href="http://version75.com">V75 Apps</a> - &copy; 2015
-      </div>
-    </footer>
-  </md-content>
+  </div>
+  <!-- / PRELOADER -->
+  <!-- APP SCRIPTS -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/angular-aria/angular-aria.js"></script>
@@ -48,6 +69,27 @@
   <script src="modules/app/app.filters.js"></script>
   <script src="modules/app/app.config.theme.js"></script>
   <script src="modules/app/app.config.router.js"></script>
+  <!-- / APP SCRIPTS -->
+
+
+  <md-toolbar class="md-hue-2 toolbar-fixed animated fadeInDown">
+    <div class="md-toolbar-tools" layout="row" layout-align="center center">
+      <div layout="row" layout-align="center center" class="app-header-title">
+        <div ng-hide="vm.$mdMedia('sm')">L</div>
+        <div class="material-icons text-accent icon">lightbulb_outline</div>
+        <div ng-hide="vm.$mdMedia('sm')" class="spacy">ghtbulb</div>
+        <div><code class="v75"><b>75</b></code></div>
+      </div>
+    </div>
+  </md-toolbar>
+  <md-content id="app-view" class="md-hue-1 feed-padding-h">
+    <div class="animate-fade" ui-view></div>
+    <footer class="footer-fixed animated fadeIn" layout="row" layout-align="center center">
+      <div class="text-center">
+        <b>Lightbulb75</b>&nbsp; by <a href="http://version75.com">V75 Apps</a> - &copy; 2015
+      </div>
+    </footer>
+  </md-content>
 </body>
 
 </html>
