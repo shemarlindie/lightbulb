@@ -8,6 +8,7 @@
     
         vm.appdeas = [];
         vm.loading = false;
+        vm.creating = false;
         vm.status = [
           {
             name: 'Not Started',
@@ -43,6 +44,7 @@
         }
 
         vm.create = function () {
+          vm.creating = true;
           var timestamp = Date.now() / 1000;
           vm.newAppdea.date_created = timestamp;
           vm.newAppdea.date_updated = timestamp;
@@ -53,10 +55,14 @@
             })
             .catch(function (error) {
               console.log('unable to create appdea:', error);
+            })
+            .finally(function () {
+              vm.creating = false;
             });
         }
 
         vm.update = function (appdea) {
+          appdea.date_updated = Date.now() / 1000;
           return Appdeas.update(appdea)
             .then(function (data) {
               console.log('updated appdea', data);
@@ -107,11 +113,7 @@
               }
 
               vm.save = function () {
-                appdea.title = vm.appdea.title;
-                appdea.description = vm.appdea.description;
-                appdea.status = vm.appdea.status;
-                appdea.date_updated = Date.now() / 1000;
-                $mdDialog.hide(vm.appdea);
+                $mdDialog.hide(angular.extend(appdea, vm.appdea));
               }
             }]
           })
