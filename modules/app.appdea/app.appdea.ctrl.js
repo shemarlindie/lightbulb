@@ -2,11 +2,13 @@
   'use strict';
 
   angular.module('app.appdea')
-    .controller('AppdeaCtrl', ['APIService', '$mdDialog', '$scope',
-      function (APIService, $mdDialog, $scope) {
+    .controller('AppdeaCtrl', ['Appdeas', '$mdDialog', '$scope',
+      function (Appdeas, $mdDialog, $scope) {
         var vm = this; // view model
     
+        vm.appdeas = [];
         vm.loading = false;
+        vm.creating = false;
         vm.status = [
           {
             name: 'Not Started',
@@ -25,44 +27,52 @@
             value: 3
           }
         ]
-        vm.appdeas = [];
         vm.newAppdea = {};
 
         vm.init = function () {
           vm.loading = true;
           vm.reset();
-          APIService.getAppdeas()
-            .then(function (response) {
-              vm.appdeas = response.data.reverse();
+          Appdeas.get()
+            .then(function (data) {
               vm.loading = false;
-              console.log('appdeas loaded', vm.appdeas);
+              vm.appdeas = data;
+              console.log('appdeas loaded:', data);
+            })
+            .catch(function (error) {
+              console.log('unable to load appdeas:', error);
             });
         }
 
-        vm.add = function () {
+        vm.create = function () {
+          vm.creating = true;
           var timestamp = Date.now() / 1000;
           vm.newAppdea.date_created = timestamp;
           vm.newAppdea.date_updated = timestamp;
-          vm.appdeas.unshift(vm.newAppdea);
-          APIService.createAppdea(vm.newAppdea)
-            .then(function (response) {
-              vm.newAppdea.id = response.data.id;
+          Appdeas.create(vm.newAppdea)
+            .then(function (data) {
               vm.reset();
-              console.log('added', response.data);
+              console.log('added appdea:', data);
+            })
+            .catch(function (error) {
+              console.log('unable to create appdea:', error);
+            })
+            .finally(function () {
+              vm.creating = false;
             });
         }
 
         vm.update = function (appdea) {
-          return APIService.updateAppdea(appdea)
-            .then(function (response) {
-              console.log('updated', response);
-              return response;
+          appdea.date_updated = Date.now() / 1000;
+          return Appdeas.update(appdea)
+            .then(function (data) {
+              console.log('updated appdea', data);
+            })
+            .catch(function (error) {
+              console.log('unable to update appdea:', error);
             });
         }
 
         vm.remove = function ($event, appdea) {
-          var index = vm.appdeas.indexOf(appdea);
-
           var dialog = $mdDialog.confirm()
             .targetEvent($event)
             .htmlContent('<b>' + appdea.title + '</b> will be deleted.')
@@ -71,11 +81,13 @@
 
           $mdDialog.show(dialog)
             .then(function () {
-              APIService.deleteAppdea(appdea.id)
-                .then(function () {
-                  console.log('removed');
+              Appdeas.delete(appdea)
+                .then(function (data) {
+                  console.log('deleted appdea:', data);
+                })
+                .catch(function (error) {
+                  console.log('unable to delete appdea:', error);
                 });
-              vm.appdeas.splice(index, 1);
             });
         }
 
@@ -101,11 +113,7 @@
               }
 
               vm.save = function () {
-                appdea.title = vm.appdea.title;
-                appdea.description = vm.appdea.description;
-                appdea.status = vm.appdea.status;
-                appdea.date_updated = Date.now() / 1000;
-                $mdDialog.hide(vm.appdea);
+                $mdDialog.hide(angular.extend(appdea, vm.appdea));
               }
             }]
           })

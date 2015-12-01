@@ -2,12 +2,14 @@
 ### A repository of Version75 ideas. ###
 #### by V75 Apps ####
 
+#### NOW WITH FIREBASE! :D ####
+
 ## Project Setup ##
 ----
 
 Run these commands in the projects root directory:
 
-* npm install --save-dev browser-sync gulp-autoprefixer gulp-less gulp-minify-css gulp-plumber
+* npm install
 * bower install
 
 #### LESS ####
@@ -18,11 +20,6 @@ To compile:
 * gulp
 
 The latter will watch for changes and automatically recompile 'style.less'
-
-#### Database ####
-* Import the SQL file at "database/lightbulb75.sql"
-* Update the DB connection details at "api/db.inc.php"
-
 
 #### NOTE: ####
 * You must have Node and NPM (with gulp & bower) installed to run these commands
