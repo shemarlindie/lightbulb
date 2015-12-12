@@ -4,11 +4,10 @@
 
   angular.module('app.firebase')
     .factory('Appdeas', ['$firebaseArray', function ($firebaseArray) {
-      var firebaseUrls = {
-        APPDEAS: 'https://lightbulb75.firebaseio.com/appdeas'
-      }
+      var URL_BASE = 'https://lightbulb75.firebaseio.com';
+      var URL_APPDEAS = URL_BASE + '/appdeas';
       
-      var ref = new Firebase(firebaseUrls.APPDEAS);
+      var ref = new Firebase(URL_APPDEAS);
 
       var service = {
         appdeas: undefined,

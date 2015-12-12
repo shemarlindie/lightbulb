@@ -9,8 +9,8 @@
     </div>
   </md-toolbar>
   <md-card-content>
-    <div ng-bind="appdea.description"></div>
-    <div class="m-t-md text-sm" layout="row" layout-sm="column">
+    <div style="overflow:auto;" marked="appdea.description"></div>
+    <div class="text-sm" layout="row" layout-sm="column" layout-align="end stretch" layout-align-sm="end end">
       <div class="text-muted" am-time-ago="appdea.date_updated | amFromUnix" flex></div>
       <div layout="row" layout-align-sm="start start" layout-align="end end" flex>
         <span class="text-muted" ng-bind="appdea.status | status | uppercase"></span>        

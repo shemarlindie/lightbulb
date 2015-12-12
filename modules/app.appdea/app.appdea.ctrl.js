@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('app.appdea')
-    .controller('AppdeaCtrl', ['Appdeas', '$mdDialog', '$scope',
-      function (Appdeas, $mdDialog, $scope) {
+    .controller('AppdeaCtrl', ['Appdeas', '$mdDialog', '$scope', '$sanitize', 'marked',
+      function (Appdeas, $mdDialog, $scope, $sanitize, marked) {
         var vm = this; // view model
     
         vm.appdeas = [];
@@ -48,6 +48,8 @@
           var timestamp = Date.now() / 1000;
           vm.newAppdea.date_created = timestamp;
           vm.newAppdea.date_updated = timestamp;
+          vm.newAppdea.title = $sanitize(vm.newAppdea.title);       
+          // vm.newAppdea.description = $sanitize(vm.newAppdea.description);       
           Appdeas.create(vm.newAppdea)
             .then(function (data) {
               vm.reset();
@@ -63,6 +65,8 @@
 
         vm.update = function (appdea) {
           appdea.date_updated = Date.now() / 1000;
+          appdea.title = $sanitize(appdea.title);
+          // appdea.description = $sanitize(appdea.description);
           return Appdeas.update(appdea)
             .then(function (data) {
               console.log('updated appdea', data);
