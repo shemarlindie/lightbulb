@@ -22,11 +22,11 @@
 
         var service = {
           user: undefined,
-          
+
           isAuthenticated: function () {
             return ref.getAuth();
           },
-          
+
           getProfile: function (uid) {
             if (uid) {
               return $firebaseObject(usersRef.child(uid));
@@ -37,7 +37,7 @@
                 this.user = $firebaseObject(usersRef.child(auth.uid));
               }
             }
-            
+
             return this.user;
           },
 
@@ -93,7 +93,7 @@
                           }
                         });
                       }
-                    })
+                    }, { remember: true });
                   }
                 });
               }

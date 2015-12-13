@@ -16,6 +16,9 @@
               <label>Password</label>
               <input type="password" ng-model="vm.loginData.password" required>
             </md-input-container>
+            <div class="text-center">
+              <md-checkbox class="md-primary" ng-model="vm.loginData.rememberMe">Remember me</md-checkbox>              
+            </div>
             <md-button ng-disabled="vm.loggingIn" type="submit" class="md-primary md-raised">Login</md-button>
           </div>
         </form>

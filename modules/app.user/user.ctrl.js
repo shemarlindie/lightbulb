@@ -9,7 +9,9 @@
         vm.signingUp = false;
         vm.loggingIn = false;
         vm.signupData = {};
-        vm.loginData = {};
+        vm.loginData = {
+          rememberMe: true
+        };
 
         vm.signup = function () {
           vm.signingUp = true;
