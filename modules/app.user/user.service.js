@@ -81,6 +81,7 @@
                       else { // login successful; create profile
                         user.uid = data.uid;
                         delete user.password;
+                        delete user.confirm_password;
                         delete user.secret;
 
                         usersRef.child(user.uid).set(user, function (error) {

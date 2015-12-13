@@ -27,6 +27,10 @@
               <input type="password" ng-model="vm.signupData.password" required>
             </md-input-container>
             <md-input-container>
+              <label>Confirm Password</label>
+              <input compare-to="vm.signupData.password" type="password" ng-model="vm.signupData.confirm_password" required>
+            </md-input-container>
+            <md-input-container>
               <label>Secret Code</label>
               <input type="password" ng-model="vm.signupData.secret" required>
             </md-input-container>
