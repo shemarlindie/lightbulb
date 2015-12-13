@@ -3,7 +3,7 @@
     <div class="md-toolbar-tools" layout="row">
       <div layout="column" title="{{appdea.title}}" class="text-ellipsis" flex>
         <span ng-bind="appdea.title" class="text-ellipsis"></span>
-        <span ng-bind="appdea.uname" class="subtitle text-ellipsis"></span>
+        <span ng-if="appdea.uid && appdea.uname" ng-bind="appdea.uname" class="subtitle text-ellipsis"></span>
       </div>
       <div>
         <md-button ng-if="deletable" ng-click="onDelete($event, appdea)" class="md-icon-button no-margin"><md-icon>delete</md-icon></md-button>
