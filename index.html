@@ -102,12 +102,14 @@
 
   <md-toolbar class="md-hue-2 toolbar-fixed animated fadeInDown">
     <div class="md-toolbar-tools" layout="row">
-      <div layout="row" layout-align="start center" class="app-header-title" flex>
-        <div ng-hide="vm.$mdMedia('sm')">L</div>
-        <div class="material-icons text-accent icon">lightbulb_outline</div>
-        <div ng-hide="vm.$mdMedia('sm')" class="spacy">ghtbulb</div>
-        <div><code class="v75"><b>75</b></code></div>
-      </div>
+      <md-button ui-sref="app">
+        <div layout="row" layout-align="start center" class="app-header-title" flex>
+          <div ng-hide="vm.$mdMedia('sm')">L</div>
+          <div class="material-icons text-accent icon">lightbulb_outline</div>
+          <div ng-hide="vm.$mdMedia('sm')" class="spacy">ghtbulb</div>
+          <div><b class="v75">75</b></div>
+        </div>
+      </md-button>
       
       <md-button ng-if="!vm.isAuthenticated()" ui-sref="login">Login</md-button>
       
