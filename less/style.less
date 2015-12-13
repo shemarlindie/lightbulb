@@ -103,6 +103,14 @@ a:hover {
   overflow-x: hidden;
 }
 
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
 .text-accent {
   color: @brand-accent;  
 }
@@ -115,13 +123,22 @@ a:hover {
   margin: 0 !important;
 }
 
+.m-t-md {
+  margin-top: 20px;
+}
+
 .m-t {
   margin-top: 15px;
 }
 
-.m-t-md {
-  margin-top: 20px;
+.m-t-sm {
+  margin-top: 10px;
 }
+
+.m-t-xs {
+  margin-top: 5px;
+}
+
 
 .no-padding-t {
   padding-top: 0 !important;
@@ -129,6 +146,18 @@ a:hover {
 
 .no-padding {
   padding: 0 !important;
+}
+
+.auth-card-wrapper {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.auth-card-wrapper-sm {
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .appdea-create-container {
@@ -196,6 +225,10 @@ appdea-view.ng-leave {
 appdea-view.ng-leave.ng-leave-active {
   opacity:0;
   transform: scale(0.5) translateY(200px);
+}
+
+appdea-view md-toolbar .subtitle {
+  font-size: 60%;
 }
 
 

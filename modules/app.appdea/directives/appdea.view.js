@@ -11,6 +11,8 @@
           appdea: '=ngModel',
           onEdit: '=',
           onDelete: '=',
+          editable: '=',
+          deletable: '='
         }
       };
     });

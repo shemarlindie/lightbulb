@@ -82,11 +82,15 @@
   <script src="bower_components/angularfire/dist/angularfire.js"></script>
   <script src="bower_components/marked/lib/marked.js"></script>
   <script src="bower_components/angular-marked/dist/angular-marked.js"></script>
-  <script src="modules/app.firebase/app.firebase.module.js"></script>
-  <script src="modules/app.firebase/appdeas.service.js"></script>
-  <script src="modules/app.appdea/app.appdea.module.js"></script>
-  <script src="modules/app.appdea/app.appdea.ctrl.js"></script>
-  <script src="modules/app.appdea/directives/app.appdea.view.js"></script>
+  <script src="modules/app.firebase/firebase.module.js"></script>
+  <script src="modules/app.firebase/firebase.service.js"></script>
+  <script src="modules/app.user/user.module.js"></script>
+  <script src="modules/app.user/user.service.js"></script>
+  <script src="modules/app.user/user.ctrl.js"></script>
+  <script src="modules/app.appdea/appdea.module.js"></script>
+  <script src="modules/app.appdea/appdea.service.js"></script>
+  <script src="modules/app.appdea/appdea.ctrl.js"></script>
+  <script src="modules/app.appdea/directives/appdea.view.js"></script>
   <script src="modules/app/app.module.js"></script>
   <script src="modules/app/app.ctrl.js"></script>
   <script src="modules/app/app.filters.js"></script>
@@ -96,13 +100,41 @@
 
 
   <md-toolbar class="md-hue-2 toolbar-fixed animated fadeInDown">
-    <div class="md-toolbar-tools" layout="row" layout-align="center center">
-      <div layout="row" layout-align="center center" class="app-header-title">
+    <div class="md-toolbar-tools" layout="row">
+      <div layout="row" layout-align="start center" class="app-header-title" flex>
         <div ng-hide="vm.$mdMedia('sm')">L</div>
         <div class="material-icons text-accent icon">lightbulb_outline</div>
         <div ng-hide="vm.$mdMedia('sm')" class="spacy">ghtbulb</div>
         <div><code class="v75"><b>75</b></code></div>
       </div>
+      
+      <md-button ng-if="!vm.isAuthenticated()" ui-sref="login">Login</md-button>
+      
+      <md-menu ng-if="vm.isAuthenticated()" ng-init="vm.loadUserProfile()" md-offset="0 45" md-position-mode="target-right target" title="{{$root.user.email}}">
+        
+        <md-button ng-click="$mdOpenMenu($event)">
+          <span>
+            <span class="text-lowercase" hide-sm>{{vm.user.email}}</span>&nbsp;
+            <span class="text-uppercase" show-sm hide-gt-sm><strong>{{vm.user.first_name.charAt(0) + vm.user.last_name.charAt(0)}}</strong></span>
+            <md-icon class="material-icons">person</md-icon>
+          </span>
+        </md-button>
+        
+        <md-menu-content width="4">
+          <span class="text-center m-t-xs" hide-gt-sm>
+            <span class="text-sm text-ellipsis">{{vm.user.email}}</span>&nbsp;
+            <md-divider class="m-t-sm"></md-divider>
+          </span>
+          <md-menu-item>
+            <md-button ng-disabled="true" ui-sref="account">
+              <md-icon class="md-primary">person</md-icon>
+              <span>Account</span>
+            </md-button>
+          </md-menu-item>
+          <md-button class="md-raised md-warn" ng-click="vm.logout()" ng-disabled="loggingOut">Logout</md-button>
+        </md-menu-content>
+        
+      </md-menu>
     </div>
   </md-toolbar>
   <md-content id="app-view" class="md-hue-1 feed-padding-h">

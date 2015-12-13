@@ -4,7 +4,7 @@
   'use strict';
 
   // MODULE DEFINITION
-  angular.module('app', ['app.appdea', 'ui.router', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngSanitize'])
+  angular.module('app', ['app.firebase', 'app.user', 'app.appdea', 'ui.router', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngSanitize'])
 
     .run(function () {
       // remove preloader

@@ -2,7 +2,7 @@
   'use strict';
   
   // MODULE DEFINITION
-  angular.module('app.appdea', ['app.firebase', 'ngAnimate', 'ngAria', 'ngMaterial', 'angularMoment', 'ngSanitize', 'hc.marked'])
+  angular.module('app.appdea', ['app.firebase', 'app.user', 'ngAnimate', 'ngAria', 'ngMaterial', 'angularMoment', 'ngSanitize', 'hc.marked'])
 
   .config(['markedProvider', function (markedProvider) {
       markedProvider.setOptions({

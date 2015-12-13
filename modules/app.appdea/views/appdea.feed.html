@@ -1,4 +1,4 @@
-<div ng-controller="AppdeaCtrl as vm" ng-init="vm.init()" layout-column>
+<div ng-controller="AppdeaCtrl as vm" ng-init="vm.init()" layout="column">
   <div layout="column" class="appdea-create-container">
     <form name="vm.appdeaCreateForm" ng-submit="vm.appdeaCreateForm.$valid && vm.create()">
       <md-card class="appdea-creator">
@@ -36,7 +36,7 @@
     <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
   </div>
   <div layout="row" layout-align="space-around start" ng-animate-children="true" layout-wrap>
-    <appdea-view on-edit="vm.edit" on-delete="vm.remove" ng-hide="vm.loading" ng-repeat="appdea in vm.appdeas | orderBy:'-date_updated' track by appdea.$id"
+    <appdea-view deletable="!appdea.uid || (appdea.uid == vm.user.uid) || vm.user.is_admin" editable="!appdea.uid || (appdea.uid == vm.user.uid) || vm.user.is_admin" on-edit="vm.edit" on-delete="vm.remove" ng-hide="vm.loading" ng-repeat="appdea in vm.appdeas | orderBy:'-date_updated' track by appdea.$id"
     ng-model="appdea" flex="33" flex-sm="100" flex-md="50"></appdea-view>
   </div>
 </div>

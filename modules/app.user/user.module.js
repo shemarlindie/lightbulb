@@ -2,6 +2,6 @@
   'use strict';
   
   // MODULE DEFINITION
-  angular.module('app.firebase', ['firebase']);
+  angular.module('app.user', ['app.firebase']);
 
 })(angular);

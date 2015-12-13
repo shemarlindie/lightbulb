@@ -2,10 +2,11 @@
   'use strict';
 
   angular.module('app.appdea')
-    .controller('AppdeaCtrl', ['Appdeas', '$mdDialog', '$scope', '$sanitize', 'marked',
-      function (Appdeas, $mdDialog, $scope, $sanitize, marked) {
+    .controller('AppdeaCtrl', ['Appdea', 'User', '$mdDialog', '$scope', '$sanitize', 'marked',
+      function (Appdea, User, $mdDialog, $scope, $sanitize, marked) {
         var vm = this; // view model
-    
+        
+        vm.user = {};
         vm.appdeas = [];
         vm.loading = false;
         vm.creating = false;
@@ -30,9 +31,10 @@
         vm.newAppdea = {};
 
         vm.init = function () {
+          vm.user = User.getProfile();
           vm.loading = true;
           vm.reset();
-          Appdeas.get()
+          Appdea.getAll()
             .then(function (data) {
               vm.loading = false;
               vm.appdeas = data;
@@ -50,7 +52,7 @@
           vm.newAppdea.date_updated = timestamp;
           vm.newAppdea.title = $sanitize(vm.newAppdea.title);       
           // vm.newAppdea.description = $sanitize(vm.newAppdea.description);       
-          Appdeas.create(vm.newAppdea)
+          Appdea.create(vm.newAppdea)
             .then(function (data) {
               vm.reset();
               console.log('added appdea:', data);
@@ -67,7 +69,7 @@
           appdea.date_updated = Date.now() / 1000;
           appdea.title = $sanitize(appdea.title);
           // appdea.description = $sanitize(appdea.description);
-          return Appdeas.update(appdea)
+          return Appdea.update(appdea)
             .then(function (data) {
               console.log('updated appdea', data);
             })
@@ -85,7 +87,7 @@
 
           $mdDialog.show(dialog)
             .then(function () {
-              Appdeas.delete(appdea)
+              Appdea.delete(appdea)
                 .then(function (data) {
                   console.log('deleted appdea:', data);
                 })
