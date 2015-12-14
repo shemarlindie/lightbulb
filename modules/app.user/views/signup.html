@@ -37,7 +37,12 @@
             
             <p ng-show="vm.signupError" ng-bind="vm.signupError" class="text-danger text-sm"></p>
 
-            <md-button ng-disabled="vm.signingUp" type="submit" class="md-primary md-raised">Signup!</md-button>
+            <md-button ng-disabled="vm.signingUp" type="submit" class="md-primary md-raised">
+              <div layout="row" layout-align="center center">
+                <md-progress-circular ng-show="vm.signingUp" md-mode="indeterminate" md-diameter="30"></md-progress-circular>
+                <span>Signup!</span>
+              </div>
+            </md-button>
           </div>
         </form>
       </md-card-content>
