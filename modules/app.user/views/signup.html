@@ -7,12 +7,12 @@
             <p>Create a Lightbulb account with the secret code provided by <a href="http://version75.com" target="_blank">V75</a>.</p>
           </div>
           <div layout="column">
-            <div layout="row">
-              <md-input-container>
+            <div layout="row" layout-sm="column">
+              <md-input-container flex>
                 <label>First Name</label>
                 <input type="text" ng-model="vm.signupData.first_name" required>
               </md-input-container>
-              <md-input-container>
+              <md-input-container flex>
                 <label>Last Name</label>
                 <input type="text" ng-model="vm.signupData.last_name" required>
               </md-input-container>
@@ -24,7 +24,7 @@
             </md-input-container>
             <md-input-container>
               <label>Password</label>
-              <input type="password" ng-model="vm.signupData.password" required>
+              <input type="password" ng-model="vm.signupData.password" minlength="6" required>
             </md-input-container>
             <md-input-container>
               <label>Confirm Password</label>
@@ -34,6 +34,8 @@
               <label>Secret Code</label>
               <input type="password" ng-model="vm.signupData.secret" required>
             </md-input-container>
+            
+            <p ng-show="vm.signupError" ng-bind="vm.signupError" class="text-danger text-sm"></p>
 
             <md-button ng-disabled="vm.signingUp" type="submit" class="md-primary md-raised">Signup!</md-button>
           </div>

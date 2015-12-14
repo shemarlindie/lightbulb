@@ -1,5 +1,8 @@
 @brand-primary: #1565C0;
 @brand-accent: #FF0;
+@brand-success: #2E7D32;
+@brand-warning: #FFB300;
+@brand-danger: #C62828;
 @footer-height: 56px;
 @toolbar-height: 64px;
 @feed-padding: 20px;
@@ -119,6 +122,18 @@ a:hover {
   color: @brand-primary;
 }
 
+.text-success {
+  color: @brand-success;
+}
+
+.text-warning {
+  color: @brand-warning;
+}
+
+.text-danger {
+  color: @brand-danger;
+}
+
 .no-margin {
   margin: 0 !important;
 }
@@ -187,10 +202,8 @@ md-toolbar, footer {
 }
 
 .animate-fade.ng-enter {
+  position: relative;
   animation: fadeIn 1s;
-}
-.animate-fade.ng-leave {
-  animation: fadeOut 1s;
 }
 
 md-input-container textarea {

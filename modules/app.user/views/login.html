@@ -17,8 +17,9 @@
               <input type="password" ng-model="vm.loginData.password" required>
             </md-input-container>
             <div class="text-center">
-              <md-checkbox class="md-primary" ng-model="vm.loginData.rememberMe">Remember me</md-checkbox>              
+              <md-checkbox class="md-primary" ng-model="vm.loginData.rememberMe">Remember me</md-checkbox>
             </div>
+            <p ng-show="vm.loginError" ng-bind="vm.loginError" class="text-danger text-sm"></p>
             <md-button ng-disabled="vm.loggingIn" type="submit" class="md-primary md-raised">Login</md-button>
           </div>
         </form>

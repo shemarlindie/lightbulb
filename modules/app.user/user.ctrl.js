@@ -12,6 +12,8 @@
         vm.loginData = {
           rememberMe: true
         };
+        vm.loginError = undefined;
+        vm.signupError = undefined;
 
         vm.signup = function () {
           vm.signingUp = true;
@@ -22,6 +24,12 @@
             })
             .catch(function (error) {
               console.log('Signup error:', error);
+              if (error.wrongSecretCode) {
+                vm.signupError = 'Invalid secret code.';
+              }              
+              else {
+                vm.signupError = error;
+              }
             })
             .finally(function () {
               vm.signingUp = false;
@@ -35,7 +43,7 @@
               $state.go('app');
             })
             .catch(function (error) {
-              console.log('Login error:', error);
+              vm.loginError = error;
             })
             .finally(function () {
               vm.loggingIn = false;
