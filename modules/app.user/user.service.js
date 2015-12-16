@@ -3,8 +3,8 @@
   'use strict';
 
   angular.module('app.user')
-    .factory('User', ['FirebaseService', '$firebaseObject', 'SECRET_CODE', '$q', '$state',
-      function (FirebaseService, $firebaseObject, SECRET_CODE, $q, $state) {
+    .factory('User', ['FirebaseService', '$firebaseObject', '$q', '$state',
+      function (FirebaseService, $firebaseObject, $q, $state) {
 
         var ref = FirebaseService.getRef();
         var usersRef = ref.child('users');
@@ -12,7 +12,7 @@
         ref.onAuth(function (authData) {
           if (authData) {
             // user logged in
-            console.log('Logged in:', authData);
+            // console.log('Logged in:', authData);
           }
           else {
             // user logged out
@@ -22,6 +22,8 @@
 
         var service = {
           user: undefined,
+
+          isAdmin: undefined,
 
           isAuthenticated: function () {
             return ref.getAuth();
@@ -67,39 +69,33 @@
             var user = data;
 
             var promise = $q(function (resolve, reject) {
-              if (data.secret === SECRET_CODE) {
-                ref.createUser(user, function (error, data) {
-                  if (error) {
-                    reject(error);
-                  }
-                  else {
-                    // account created; login & create user profile
-                    ref.authWithPassword(user, function (error, data) {
-                      if (error) {
-                        reject(error)
-                      }
-                      else { // login successful; create profile
-                        user.uid = data.uid;
-                        delete user.password;
-                        delete user.confirm_password;
-                        delete user.secret;
+              ref.createUser(user, function (error, data) {
+                if (error) {
+                  reject(error);
+                }
+                else {
+                  // account created; login & create user profile
+                  ref.authWithPassword(user, function (error, data) {
+                    if (error) {
+                      reject(error)
+                    }
+                    else { // login successful; create profile
+                      user.uid = data.uid;
+                      delete user.password;
+                      delete user.confirm_password;
 
-                        usersRef.child(user.uid).set(user, function (error) {
-                          if (error) {
-                            reject(error);
-                          }
-                          else {
-                            resolve(data);
-                          }
-                        });
-                      }
-                    }, { remember: true });
-                  }
-                });
-              }
-              else {
-                reject({ wrongSecretCode: true });
-              }
+                      usersRef.child(user.uid).set(user, function (error) {
+                        if (error) {
+                          reject(error);
+                        }
+                        else {
+                          resolve(data);
+                        }
+                      });
+                    }
+                  }, { remember: true });
+                }
+              });
             });
 
             return promise;
@@ -167,6 +163,13 @@
 
 
         };
+
+        ref.child('secrets/admin').once('value', function () {
+          service.isAdmin = true;
+        }, function () {
+          service.isAdmin = false;
+        });
+
 
         return service;
 

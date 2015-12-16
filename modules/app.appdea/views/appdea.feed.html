@@ -36,7 +36,7 @@
     <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
   </div>
   <div layout="row" layout-align="space-around start" ng-animate-children="true" layout-wrap>
-    <appdea-view deletable="!appdea.uid || (appdea.uid == vm.user.uid) || vm.user.is_admin" editable="!appdea.uid || (appdea.uid == vm.user.uid) || vm.user.is_admin" on-edit="vm.edit" on-delete="vm.remove" ng-hide="vm.loading" ng-repeat="appdea in vm.appdeas | orderBy:'-date_updated' track by appdea.$id"
+    <appdea-view deletable="!appdea.uid || (appdea.uid == vm.user.uid) || vm.userService.isAdmin" editable="!appdea.uid || (appdea.uid == vm.user.uid) || vm.userService.isAdmin" on-edit="vm.edit" on-delete="vm.remove" ng-hide="vm.loading" ng-repeat="appdea in vm.appdeas | orderBy:'-date_updated' track by appdea.$id"
     ng-model="appdea" flex="33" flex-xs="100" flex-sm="50" flex-gt-lg="20"></appdea-view>
   </div>
 </div>

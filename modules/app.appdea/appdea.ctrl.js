@@ -6,6 +6,7 @@
       function (Appdea, User, $mdDialog, $scope, $sanitize, marked) {
         var vm = this; // view model
         
+        vm.userService = User;
         vm.user = {};
         vm.appdeas = [];
         vm.loading = false;

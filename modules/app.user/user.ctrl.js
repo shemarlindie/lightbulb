@@ -19,17 +19,10 @@
           vm.signingUp = true;
           User.create(vm.signupData)
             .then(function (data) {
-              console.log('Signed up:', data);
               $state.go('login');
             })
             .catch(function (error) {
-              console.log('Signup error:', error);
-              if (error.wrongSecretCode) {
-                vm.signupError = 'Invalid secret code.';
-              }              
-              else {
-                vm.signupError = error;
-              }
+              vm.signupError = error;
             })
             .finally(function () {
               vm.signingUp = false;
