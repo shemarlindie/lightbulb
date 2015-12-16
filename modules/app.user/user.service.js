@@ -6,37 +6,23 @@
     .factory('User', ['FirebaseService', '$firebaseObject', '$q', '$state',
       function (FirebaseService, $firebaseObject, $q, $state) {
 
-        var ref = FirebaseService.getRef();
-        var usersRef = ref.child('users');
-
-        ref.onAuth(function (authData) {
-          if (authData) {
-            // user logged in
-            // console.log('Logged in:', authData);
-          }
-          else {
-            // user logged out
-            console.log('Logged out.');
-          }
-        });
-
         var service = {
           user: undefined,
 
           isAdmin: undefined,
 
           isAuthenticated: function () {
-            return ref.getAuth();
+            return FirebaseService.getRef().getAuth();
           },
 
           getProfile: function (uid) {
             if (uid) {
-              return $firebaseObject(usersRef.child(uid));
+              return $firebaseObject(FirebaseService.getRef().child('users/' + uid));
             }
             else {
-              var auth = ref.getAuth();
+              var auth = FirebaseService.getRef().getAuth();
               if (auth && !this.user) {
-                this.user = $firebaseObject(usersRef.child(auth.uid));
+                this.user = $firebaseObject(FirebaseService.getRef().child('users/' + auth.uid));
               }
             }
 
@@ -45,7 +31,7 @@
 
           login: function (data) {
             var promise = $q(function (resolve, reject) {
-              ref.authWithPassword(data, function (error, data) {
+              FirebaseService.getRef().authWithPassword(data, function (error, data) {
                 if (error) {
                   reject(error);
                 }
@@ -61,39 +47,51 @@
           },
 
           logout: function () {
-            ref.unauth();
-            this.user = undefined;
+            FirebaseService.getRef().unauth();
+            if (this.user) {
+              this.user.$destroy();
+              this.user = undefined;
+            }
           },
 
           create: function (data) {
             var user = data;
 
             var promise = $q(function (resolve, reject) {
-              ref.createUser(user, function (error, data) {
+              FirebaseService.getRef().createUser(user, function (error, data) {
                 if (error) {
                   reject(error);
                 }
                 else {
-                  // account created; login & create user profile
-                  ref.authWithPassword(user, function (error, data) {
-                    if (error) {
-                      reject(error)
-                    }
-                    else { // login successful; create profile
-                      user.uid = data.uid;
-                      delete user.password;
-                      delete user.confirm_password;
+                  // account created; create user profile & login
+                  var loginData = {
+                    email: user.email,
+                    password: user.password,
+                    rememberMe: true
+                  }
 
-                      usersRef.child(user.uid).set(user, function (error) {
-                        if (error) {
-                          reject(error);
-                        }
-                        else {
-                          resolve(data);
-                        }
-                      });
+                  // don't store password in profile
+                  user.uid = data.uid;
+                  delete user.password;
+                  delete user.confirm_password;
+
+                  // create profile
+                  FirebaseService.getRef().child('users/' + user.uid).set(user, function (error) {
+                    if (error) {
+                      reject(error);
                     }
-                  }, { remember: true });
+                    else {
+                      // profile created; login
+                      service.login(loginData)
+                        .then(function (data) {
+                          // login successful
+                          resolve(data);
+                        })
+                        .catch(function (error) {
+                          reject(error)
+                        });
+                    }
+                  });
                 }
               });
             });
@@ -103,7 +101,7 @@
 
           remove: function (data) {
             var promise = $q(function (resolve, reject) {
-              ref.removeUser(data, function (error, data) {
+              FirebaseService.getRef().removeUser(data, function (error, data) {
                 if (error) {
                   reject(error);
                 }
@@ -118,7 +116,7 @@
 
           changeEmail: function (data) {
             var promise = $q(function (resolve, reject) {
-              ref.changeEmail(data, function (error, data) {
+              FirebaseService.getRef().changeEmail(data, function (error, data) {
                 if (error) {
                   reject(error);
                 }
@@ -133,7 +131,7 @@
 
           changePassword: function (data) {
             var promise = $q(function (resolve, reject) {
-              ref.changeEmail(data, function (error, data) {
+              FirebaseService.getRef().changeEmail(data, function (error, data) {
                 if (error) {
                   reject(error);
                 }
@@ -148,7 +146,7 @@
 
           resetPassword: function (data) {
             var promise = $q(function (resolve, reject) {
-              ref.changeEmail(data, function (error, data) {
+              FirebaseService.getRef().changeEmail(data, function (error, data) {
                 if (error) {
                   reject(error);
                 }
@@ -161,14 +159,31 @@
             return promise
           }
 
-
         };
 
-        ref.child('secrets/admin').once('value', function () {
-          service.isAdmin = true;
-        }, function () {
-          service.isAdmin = false;
-        });
+
+        var authCallback = function (authData) {
+          if (authData) {
+            // user logged in
+            if (service.isAdmin === undefined) {
+              FirebaseService.getRef().child('secrets/admin').once('value', function () {
+                service.isAdmin = true;
+                console.log('Logged in as admin.');
+              }, function () {
+                service.isAdmin = false;
+                console.log('Logged in.');
+              });
+            }
+          }
+          else {
+            // user logged out
+            service.isAdmin = undefined;
+            console.log('Logged out.');
+          }
+        };
+
+        FirebaseService.onAuth(authCallback);
+
 
 
         return service;

@@ -19,7 +19,7 @@
           vm.signingUp = true;
           User.create(vm.signupData)
             .then(function (data) {
-              $state.go('login');
+              $state.go('app');
             })
             .catch(function (error) {
               vm.signupError = error;

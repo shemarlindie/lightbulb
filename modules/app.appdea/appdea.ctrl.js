@@ -2,14 +2,14 @@
   'use strict';
 
   angular.module('app.appdea')
-    .controller('AppdeaCtrl', ['Appdea', 'User', '$mdDialog', '$scope', '$sanitize', 'marked',
-      function (Appdea, User, $mdDialog, $scope, $sanitize, marked) {
+    .controller('AppdeaCtrl', ['FirebaseService', 'Appdea', 'User', '$scope', '$mdDialog', '$sanitize', 'marked',
+      function (FirebaseService, Appdea, User, $scope, $mdDialog, $sanitize, marked) {
         var vm = this; // view model
-        
+
         vm.userService = User;
         vm.user = {};
         vm.appdeas = [];
-        vm.loading = false;
+        vm.loading = true;
         vm.creating = false;
         vm.status = [
           {
@@ -32,14 +32,13 @@
         vm.newAppdea = {};
 
         vm.init = function () {
-          vm.user = User.getProfile();
-          vm.loading = true;
           vm.reset();
+          vm.user = User.getProfile();
           Appdea.getAll()
             .then(function (data) {
               vm.loading = false;
               vm.appdeas = data;
-              console.log('appdeas loaded:', data);
+              // console.log('appdeas loaded:', data);
             })
             .catch(function (error) {
               console.log('unable to load appdeas:', error);
@@ -56,7 +55,7 @@
           Appdea.create(vm.newAppdea)
             .then(function (data) {
               vm.reset();
-              console.log('added appdea:', data);
+              // console.log('added appdea:', data);
             })
             .catch(function (error) {
               console.log('unable to create appdea:', error);
@@ -72,7 +71,7 @@
           // appdea.description = $sanitize(appdea.description);
           return Appdea.update(appdea)
             .then(function (data) {
-              console.log('updated appdea', data);
+              // console.log('updated appdea', data);
             })
             .catch(function (error) {
               console.log('unable to update appdea:', error);
@@ -90,7 +89,7 @@
             .then(function () {
               Appdea.delete(appdea)
                 .then(function (data) {
-                  console.log('deleted appdea:', data);
+                  // console.log('deleted appdea:', data);
                 })
                 .catch(function (error) {
                   console.log('unable to delete appdea:', error);
@@ -133,10 +132,25 @@
           vm.newAppdea = { status: 0 };
           if (vm.appdeaCreateForm) {
             vm.appdeaCreateForm.$setPristine();
-            // vm.appdeaCreateForm.$setValidity();
             vm.appdeaCreateForm.$setUntouched();
           }
         }
+
+        var authCallback = function (authData) {
+          if (authData) {
+            Appdea.connect();
+            vm.init();
+          }
+          else {
+            Appdea.disconnect();
+          }
+        }
+
+        FirebaseService.onAuth(authCallback);
+
+        $scope.$on('$destroy', function () {
+          FirebaseService.offAuth(authCallback);
+        });
       }]);
 
 })(angular);

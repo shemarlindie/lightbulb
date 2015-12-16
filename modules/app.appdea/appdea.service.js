@@ -5,35 +5,44 @@
   angular.module('app.appdea')
     .factory('Appdea', ['FirebaseService', '$firebaseArray', 'User',
       function (FirebaseService, $firebaseArray, User) {
-        var ref = FirebaseService.getRef().child('appdeas');
-
+        
         var service = {
           appdeas: undefined,
-
-          getAll: function () {
+          
+          connect: function () {
             if (this.appdeas === undefined) {
+              var ref = FirebaseService.getRef().child('appdeas');
               this.appdeas = $firebaseArray(ref);
             }
-
-            return this.appdeas.$loaded();
+          },
+          
+          disconnect: function () {
+            if (this.appdeas) {
+              this.appdeas.$destroy();
+              this.appdeas = undefined;
+            }
           },
 
-          create: function (appdea) {
+          getAll: function () {            
+            return this.appdeas && this.appdeas.$loaded();
+          },
+
+          create: function (appdea) {            
             var u = User.getProfile();
             if (u) {
               appdea.uid = u.uid;
               appdea.uname = u.first_name + ' ' + u.last_name;
             }
             
-            return this.appdeas.$add(appdea);
+            return this.appdeas && this.appdeas.$add(appdea);
           },
 
-          update: function (appdea) {
-            return this.appdeas.$save(appdea);
+          update: function (appdea) {            
+            return this.appdeas && this.appdeas.$save(appdea);
           },
 
-          delete: function (appdea) {
-            return this.appdeas.$remove(appdea);
+          delete: function (appdea) {            
+            return this.appdeas && this.appdeas.$remove(appdea);
           }
         };
 

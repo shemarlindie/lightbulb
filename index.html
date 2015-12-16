@@ -106,16 +106,16 @@
     <div class="md-toolbar-tools" layout="row">
       <md-button ui-sref="app">
         <div layout="row" layout-align="start center" class="app-header-title">
-          <div ng-hide="vm.$mdMedia('xs')">L</div>
+          <div hide-xs>L</div>
           <div class="material-icons text-accent icon">lightbulb_outline</div>
-          <div ng-hide="vm.$mdMedia('xs')" class="spacy">ghtbulb</div>
+          <div hide-xs class="spacy">ghtbulb</div>
           <div><b class="v75">75</b></div>
         </div>
       </md-button>
       <span flex></span>
       <md-button ng-if="!vm.isAuthenticated()" ui-sref="login">Login</md-button>
       
-      <md-menu ng-if="vm.isAuthenticated()" ng-init="vm.loadUserProfile()" md-offset="0 45" md-position-mode="target-right target" title="{{$root.user.email}}">
+      <md-menu ng-if="vm.isAuthenticated()" md-offset="0 45" md-position-mode="target-right target" title="{{vm.user.email}}">
         
         <md-button ng-click="$mdOpenMenu($event)">
           <span>
