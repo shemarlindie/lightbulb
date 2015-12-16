@@ -16,12 +16,11 @@
       </md-input-container>
       <md-input-container class="md-block" style="height:auto;">
         <label for="description">Tell us more...</label>
-        <textarea id="description" name="description" type="text" ng-model="vm.appdea.description" rows="5" columns="1" md-maxlength="500" style="max-height:145px;overflow-y:auto;"
-        required></textarea>
+        <textarea id="description" name="description" type="text" ng-model="vm.appdea.description" rows="5" columns="1" md-maxlength="500" required></textarea>
       </md-input-container>
     </md-dialog-content>
-    <md-dialog-actions layout="row" layout-sm="column">
-      <div layout="row" layout-align="start center" layout-align-sm="stretch center" flex>
+    <md-dialog-actions layout="row" layout-xs="column" class="p-t-xs">
+      <div layout="row" layout-align="start center" layout-align-xs="stretch center" flex>
         <md-input-container flex>
           <label for="status">Status</label>
           <md-select id="status" name="status" ng-model="vm.appdea.status" required>
@@ -29,7 +28,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div layout="row" layout-align="end center" layout-align-sm="center center" flex>
+      <div layout="row" layout-align="end center" layout-align-xs="center center" flex>
         <md-button ng-click="vm.cancel()">Cancel</md-button>
         <md-button type="submit" class="md-primary md-raised">Save</md-button>
       </div>
