@@ -113,9 +113,9 @@
         </div>
       </md-button>
       <span flex></span>
-      <md-button ng-if="!vm.isAuthenticated()" ui-sref="login">Login</md-button>
+      <md-button ng-if="!vm.user" ui-sref="login">Login</md-button>
       
-      <md-menu ng-if="vm.isAuthenticated()" md-offset="0 45" md-position-mode="target-right target" title="{{vm.user.email}}">
+      <md-menu ng-if="vm.user" md-offset="0 45" md-position-mode="target-right target" title="{{vm.user.email}}">
         
         <md-button ng-click="$mdOpenMenu($event)">
           <span>

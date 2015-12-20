@@ -6,11 +6,14 @@
       function (FirebaseService, User, $scope, $state) {
         var vm = this; // view model
         
-        vm.user = {};
+        vm.user = undefined;
         
         var authCallback = function (authData) {
           if (authData) {
             vm.user = User.getProfile();
+          }
+          else {
+            vm.user = undefined;
           }
         }
 
@@ -23,10 +26,6 @@
         vm.logout = function () {
           User.logout();
           $state.go('login');
-        }
-
-        vm.isAuthenticated = function () {
-          return User.isAuthenticated();
         }
       }]);
 

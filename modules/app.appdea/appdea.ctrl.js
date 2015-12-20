@@ -30,6 +30,7 @@
           }
         ]
         vm.newAppdea = {};
+        vm.feedError = undefined;
 
         vm.init = function () {
           vm.reset();
@@ -41,7 +42,11 @@
               // console.log('appdeas loaded:', data);
             })
             .catch(function (error) {
-              console.log('unable to load appdeas:', error);
+              // console.log('unable to load appdeas:', error);
+              vm.feedError = error;
+            })
+            .finally(function () { 
+              vm.loading = false;
             });
         }
 
