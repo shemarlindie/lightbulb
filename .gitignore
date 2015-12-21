@@ -105,5 +105,5 @@ node_modules
 
 
 # Distribution
-.dist
-.build
+dist
+build
