@@ -27,6 +27,7 @@ var COPY_FILES = [
   './src/favicon/**/*.*',
   './src/fonts/**/*.*',
   './src/modules/**/*.*',
+  '!./src/modules/**/*.js',
   './src/browserconfig.xml',
   './src/favicon.ico',
   './src/index.html'
@@ -53,10 +54,10 @@ gulp.task('copy', function () {
 });
 
 gulp.task('minify-js', function () {
-  gulp.src(DIST_DIR + '**/*.js', { base: './' })
+  gulp.src('./src/modules/**/*.js', { base: './src/modules' })
     .pipe(plumber())
     .pipe(uglify())
-    .dest(DIST_DIR);
+    .pipe(gulp.dest(DIST_DIR + '/modules'));
 })
 
 // gulp.task('ts-migrate', function () {
@@ -84,8 +85,8 @@ gulp.task('watch', function () {
 });
 
 // GULP DEFAULT TASK
-gulp.task('default', ['less', 'watch']);
+gulp.task('default', ['build', 'watch']);
 
 // BUILD TASKS
 gulp.task('build', ['clean', 'less']);
-gulp.task('dist', ['clean', 'less', 'copy']);
+gulp.task('dist', ['clean', 'less', 'minify-js', 'copy']);

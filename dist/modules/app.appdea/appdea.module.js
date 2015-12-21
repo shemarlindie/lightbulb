@@ -1,0 +1,1 @@
+!function(e){"use strict";e.module("app.appdea",["app.firebase","app.user","ngAnimate","ngAria","ngMaterial","angularMoment","ngSanitize","hc.marked"]).config(["markedProvider",function(e){e.setOptions({gfm:!0}),e.setRenderer({link:function(e,a,n){return"<a href='"+e+"'"+(a?" title='"+a+"'":"")+" target='_blank'>"+n+"</a>"}})}])}(angular);
