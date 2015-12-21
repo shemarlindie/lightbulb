@@ -1,0 +1,45 @@
+<div ng-controller="AppdeaCtrl as vm" layout="column">
+  <div ng-if="!vm.feedError" layout="column" class="appdea-create-container">
+    <form name="vm.appdeaCreateForm" ng-submit="vm.appdeaCreateForm.$valid && vm.create()">
+      <md-card class="appdea-creator">
+        <md-card-content>
+          <div layout="column">
+            <md-input-container>
+              <label for="title">Appdea Name</label>
+              <input id="title" name="title" type="text" ng-model="vm.newAppdea.title" required />
+            </md-input-container>
+            <md-input-container class="md-block" style="height:auto;">
+              <label for="description">Tell us more...</label>
+              <textarea id="description" name="description" type="text" ng-model="vm.newAppdea.description" rows="5" columns="1" md-maxlength="500" style="max-height:145px;overflow-y:auto;"
+              required></textarea>
+            </md-input-container>
+          </div>
+        </md-card-content>
+        <md-card-footer class="no-padding-t" layout="row" layout-xs="column">
+          <div layout="row" layout-align="start center" layout-align-xs="stretch center" flex>
+            <md-input-container flex>
+              <label for="status">Status</label>
+              <md-select id="status" name="status" ng-model="vm.newAppdea.status" required>
+                <md-option ng-repeat="s in vm.status" value="{{s.value}}" ng-bind="s.name"></md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="end center" layout-align-xs="center center" flex>
+            <md-button ng-click="vm.reset()">Clear</md-button>
+            <md-button ng-disabled="vm.loading || vm.creating" type="submit" class="md-primary md-raised">Add</md-button>
+          </div>
+        </md-card-footer>
+      </md-card>
+    </form>
+  </div>
+  <div ng-if="vm.loading" layout="row" layout-align="center center">
+    <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
+  </div>
+  <div ng-if="vm.feedError" class="text-center p-sm text-danger">
+    <span ng-bind="vm.feedError"></span>
+  </div>
+  <div ng-if="!vm.feedError" layout="row" layout-align="space-around start" ng-animate-children="true" layout-wrap>
+    <appdea-view deletable="!appdea.uid || (appdea.uid == vm.user.uid) || vm.userService.isAdmin" editable="!appdea.uid || (appdea.uid == vm.user.uid) || vm.userService.isAdmin" on-edit="vm.edit" on-delete="vm.remove" ng-hide="vm.loading" ng-repeat="appdea in vm.appdeas | orderBy:'-date_updated' track by appdea.$id"
+    ng-model="appdea" flex="33" flex-xs="100" flex-sm="50" flex-gt-lg="20"></appdea-view>
+  </div>
+</div>
