@@ -1,1 +1,0 @@
-!function(o){"use strict";o.module("app").controller("AppCtrl",["FirebaseService","User","$scope","$state",function(o,t,e,n){var r=this;r.user=void 0;var u=function(o){o?r.user=t.getProfile():r.user=void 0};o.onAuth(u),e.$on("$destroy",function(){o.offAuth(u)}),r.logout=function(){t.logout(),n.go("login")}}])}(angular);

@@ -1,1 +1,0 @@
-!function(e){"use strict";e.module("app.appdea").directive("appdeaView",function(){return{restrict:"E",templateUrl:"modules/app.appdea/views/appdea.view.tpl.html",requires:"ngModel",scope:{appdea:"=ngModel",onEdit:"=",onDelete:"=",editable:"=",deletable:"="}}})}(angular);
