@@ -26,6 +26,7 @@
             templateUrl: 'modules/app.user/views/account.html',
             requiresLogin: true,
             hasSidenav: true,
+            reloadOnSearch: false
           });
 
 

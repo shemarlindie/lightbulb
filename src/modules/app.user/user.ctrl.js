@@ -30,6 +30,8 @@
           selectedSection: undefined
         }
 
+        vm.firstLoad = true;
+
         vm.signingUp = false;
         vm.loggingIn = false;
         vm.updatingProifle = false;
@@ -81,6 +83,8 @@
           else {
             vm.onSectionSelected(vm.sidenav.sections[0].children[0]);
           }
+
+          vm.firstLoad = false;
         }
 
         vm.saveProfile = function () {
@@ -218,7 +222,11 @@
           vm.sidenav.selectedSection = section;
           
           // close sidenav if not locked open
-          $mdSidenav('sidenav-main').close();
+          if (!vm.firstLoad) { // prevent exception caused when view has not yet been initialized
+            $mdSidenav('sidenav-main').then(function (sidenav) {
+              sidenav.close();
+            });
+          }
           
           // update url to remember section
           var secIndex = vm.sidenav.sections[0].children.indexOf(section);

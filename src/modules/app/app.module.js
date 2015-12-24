@@ -4,7 +4,7 @@
   'use strict';
 
   // MODULE DEFINITION
-  angular.module('app', ['app.firebase', 'app.user', 'app.appdea', 'ui.router', 'ngMaterial', 'ngTouch', 'ngAnimate', 'ngAria', 'ngSanitize', 'angular-loading-bar', 'md-sidenav-menu'])
+  angular.module('app', ['app.firebase', 'app.user', 'app.appdea', 'ui.router', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngSanitize', 'angular-loading-bar', 'md-sidenav-menu'])
 
   // measures against template caching
   // Credit: http://stackoverflow.com/a/27432167
