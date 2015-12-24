@@ -140,22 +140,8 @@
             vm.appdeaCreateForm.$setUntouched();
           }
         }
-
-        var authCallback = function (authData) {
-          if (authData) {
-            Appdea.connect();
-            vm.init();
-          }
-          else {
-            Appdea.disconnect();
-          }
-        }
-
-        FirebaseService.onAuth(authCallback);
-
-        $scope.$on('$destroy', function () {
-          FirebaseService.offAuth(authCallback);
-        });
+        
+        vm.init();
       }]);
 
 })(angular);

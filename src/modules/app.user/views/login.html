@@ -1,4 +1,4 @@
-<div ng-controller="UserCtrl as vm">
+<div ng-controller="UserCtrl as vm" class="content-padding">
   <div class="auth-card-wrapper-sm">
     <md-card>
       <md-card-content>
@@ -8,11 +8,11 @@
             <p>Need an account? <a ui-sref="signup">Signup here.</a></p>
           </div>
           <div layout="column">
-            <md-input-container>
+            <md-input-container class="no-m">
               <label>Email</label>
               <input type="email" ng-model="vm.loginData.email" required>
             </md-input-container>
-            <md-input-container>
+            <md-input-container class="no-m">
               <label>Password</label>
               <input type="password" ng-model="vm.loginData.password" required>
             </md-input-container>

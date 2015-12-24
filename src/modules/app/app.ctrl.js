@@ -25,7 +25,6 @@
 
         vm.logout = function () {
           User.logout();
-          $state.go('login');
         }
       }]);
 

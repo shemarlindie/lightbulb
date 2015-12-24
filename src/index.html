@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" />
   <link rel="stylesheet" href="bower_components/animate.css/animate.min.css" />
   <link rel="stylesheet" href="css/material-icons.css" />
+  <link rel="stylesheet" href="modules/external/md-sidenav-menu/md-sidenav-menu.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -102,6 +103,7 @@
   <script src="bower_components/angular-marked/dist/angular-marked.min.js"></script>
   <script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>-->
   <!-- / ** DISTRIBUTION -->
+  <script src="modules/external/md-sidenav-menu/md-sidenav-menu.js"></script>
   <script src="modules/app.firebase/firebase.module.js"></script>
   <script src="modules/app.firebase/firebase.service.js"></script>
   <script src="modules/app.user/user.module.js"></script>
@@ -118,14 +120,15 @@
   <script src="modules/app/app.config.theme.js"></script>
   <script src="modules/app/app.config.router.js"></script>
   <!-- / APP SCRIPTS -->
+  <!-- / APP SCRIPTS -->
 
-
-  <md-toolbar class="md-hue-2 toolbar-fixed animated fadeInDown">
+  
+  <md-toolbar class="md-hue-2 md-whiteframe-1dp toolbar-fixed animated fadeInDown">
     <div class="md-toolbar-tools" layout="row">
       <md-button ui-sref="app">
         <div layout="row" layout-align="start center" class="app-header-title">
           <div hide-xs>L</div>
-          <div class="material-icons text-accent icon">lightbulb_outline</div>
+          <div id="logo-icon" class="material-icons text-accent icon animated pulse infinite">lightbulb_outline</div>
           <div hide-xs class="spacy">ghtbulb</div>
           <div><b class="v75">75</b></div>
         </div>
@@ -149,7 +152,7 @@
             <md-divider class="m-t-sm"></md-divider>
           </span>
           <md-menu-item>
-            <md-button ng-disabled="true" ui-sref="account">
+            <md-button ui-sref="account">
               <md-icon class="md-primary">person</md-icon>
               <span>Account</span>
             </md-button>
@@ -160,9 +163,10 @@
       </md-menu>
     </div>
   </md-toolbar>
-  <md-content id="app-view" class="md-hue-1 feed-padding-h">
-    <div class="animate-fade" ui-view></div>
-    <footer class="footer-fixed animated fadeIn" layout="row" layout-align="center center">
+
+  <md-content id="app-view" class="md-hue-1" layout="column">
+    <div class="animate-fade" layout="column" ui-view flex></div>
+    <footer class="footer-fixed md-whiteframe-1dp animated fadeIn" layout="row" layout-align="center center">
       <div class="text-center">
         <b>Lightbulb75</b>&nbsp; by <a href="http://version75.com" target="_blank">V75 Apps</a> - &copy; 2015
       </div>

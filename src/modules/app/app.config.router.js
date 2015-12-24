@@ -20,6 +20,11 @@
             url: '/login',
             templateUrl: 'modules/app.user/views/login.html',
             notWhileLoggedIn: true
+          })
+          .state('account', {
+            url: '/account?section',
+            templateUrl: 'modules/app.user/views/account.html',
+            requiresLogin: true
           });
 
 

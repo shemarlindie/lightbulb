@@ -1,12 +1,5 @@
-@brand-primary: #1565C0;
-@brand-accent: #FF0;
-@brand-success: #2E7D32;
-@brand-warning: #FFB300;
-@brand-danger: #C62828;
-@footer-height: 56px;
-@toolbar-height: 64px;
-@feed-padding: 20px;
-@feed-padding-sm: 0;
+@import 'util.less';
+
 
 * {
     -webkit-box-sizing: border-box;
@@ -37,16 +30,25 @@ a:hover {
   text-decoration: underline;
 }
 
-.feed-padding-h {
-  padding-left: @feed-padding;
-  padding-right: @feed-padding;
+.content-padding {
+  padding: @content-padding;
+}
+
+.content-padding-h {
+  padding-left: @content-padding;
+  padding-right: @content-padding;
+}
+
+.content-padding-v {
+  padding-top: @content-padding;
+  padding-bottom: @content-padding;
 }
 
 #app-view {
   position: relative;
   min-height: 100%;
-  padding-top: @toolbar-height + @feed-padding;
-  padding-bottom: @footer-height + @feed-padding;
+  padding-top: @toolbar-height;
+  padding-bottom: @footer-height;  
 }
 
 .toolbar-fixed {
@@ -54,17 +56,18 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 61;
 }
 
 .footer-fixed {
   .text-muted;
+  background-color: rgb(250, 250, 250);
   position: absolute;
-  background-color: #fff;
   bottom: 0;
   left: 0;
   right: 0;
   height: @footer-height;
+  z-index: 61;
 }
 
 .app-header-title {
@@ -84,102 +87,12 @@ a:hover {
   letter-spacing: 5px;
 }
 
-.text-muted {
-  color: #777;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-sm {
-  font-size: 80%;
-}
-
-.text-ellipsis {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-
-.text-lowercase {
-  text-transform: lowercase;
-}
-
-.text-uppercase {
-  text-transform: uppercase;
-}
-
-.text-accent {
-  color: @brand-accent;  
-}
-
-.text-primary {
-  color: @brand-primary;
-}
-
-.text-success {
-  color: @brand-success;
-}
-
-.text-warning {
-  color: @brand-warning;
-}
-
-.text-danger {
-  color: @brand-danger;
+#logo-icon {
+  animation-delay: 2s;
 }
 
 .no-margin {
   margin: 0 !important;
-}
-
-.m-t-md {
-  margin-top: 20px;
-}
-
-.m-t {
-  margin-top: 15px;
-}
-
-.m-t-sm {
-  margin-top: 10px;
-}
-
-.m-t-xs {
-  margin-top: 5px;
-}
-
-.p {
-  padding: 15px;
-}
-
-.p-sm {
-  padding: 10px;
-}
-
-.p-t {
-  padding-top: 15px;
-}
-
-.p-t-sm {
-  padding-top: 10px;
-}
-
-.p-t-xs {
-  padding-top: 5px;
-}
-
-.no-padding-t {
-  padding-top: 0 !important;
-}
-
-.no-padding {
-  padding: 0 !important;
 }
 
 .auth-card-wrapper {
@@ -220,17 +133,38 @@ md-toolbar, footer {
   animation-delay: 1s;
 }
 
+md-sidenav {
+  transition: all 0.5s;
+  // animation-duration: .5s;
+  // animation-delay: 1s;
+}
+
+.md-sidenav-menu .menu-heading {
+  color: @brand-primary;
+}
+
+.md-sidenav-menu .md-button.active, .md-sidenav-menu .md-button:hover, .md-sidenav-menu .md-button:focus {
+  color: white;
+  background: @brand-primary;
+}
+
 .animate-fade.ng-enter {
   position: relative;
   animation: fadeIn 1s;
 }
 
-md-input-container textarea {
-  transition: height ease 0.3s;
+// md-input-container textarea {
+//   transition: height ease 0.3s;
+// }
+
+md-input-container.no-m {
+  margin: 0;
+  margin-top: @m-sm;
 }
 
-md-input-container {
-  margin: 8px 0;
+md-input-container.m-sm {
+  margin: @m-sm 0;
+  margin-top: @m-md;
 }
 
 appdea-view [marked] {
@@ -268,6 +202,18 @@ appdea-view md-toolbar .subtitle {
 }
 
 
+
+/*----------
+  Account
+-----------*/
+md-sidenav {
+  min-width: 250px;
+  max-width: 250px;
+  width: 250px;
+}
+
+
+
 // appdea-view.ng-move{
 //   transform: scale(0.1);
 //   opacity:0;
@@ -280,8 +226,16 @@ appdea-view md-toolbar .subtitle {
 
 
 @media (max-width: 599px) {
-  .feed-padding-h {
-    padding-left: @feed-padding-sm;
-    padding-right: @feed-padding-sm;
+  .content-padding {
+    padding-left: @content-padding-sm;
+    padding-right: @content-padding-sm;
+  }
+  // .content-padding-v {
+  //   padding-top: @content-padding-sm;
+  //   padding-bottom: @content-padding-sm;
+  // }
+  .content-padding-h {
+    padding-left: @content-padding-sm;
+    padding-right: @content-padding-sm;
   }
 }

@@ -47,11 +47,11 @@
           },
 
           logout: function () {
-            FirebaseService.getRef().unauth();
-            if (this.user) {
-              this.user.$destroy();
-              this.user = undefined;
+            if (service.user) {
+              service.user.$destroy();
+              service.user = undefined;
             }
+            FirebaseService.getRef().unauth();
           },
 
           create: function (data) {
@@ -101,14 +101,32 @@
 
           remove: function (data) {
             var promise = $q(function (resolve, reject) {
-              FirebaseService.getRef().removeUser(data, function (error, data) {
-                if (error) {
+              // delete profile
+              service.getProfile().$loaded()
+                .then(function (profile) {
+                  var ref = profile.$ref();
+                  profile.$destroy();
+                  ref.remove(function (error) {
+                    if (error) {
+                      reject(error);
+                    }
+                    else {
+                      // delete user account
+                      FirebaseService.getRef().removeUser(data, function (error) {
+                        if (error) {
+                          reject(error);
+                        }
+                        else {
+                          service.logout();
+                          resolve(true);
+                        }
+                      });
+                    }
+                  });
+                })
+                .catch(function (error) {
                   reject(error);
-                }
-                else {
-                  resolve(data);
-                }
-              });
+                });
             });
 
             return promise;
@@ -116,12 +134,27 @@
 
           changeEmail: function (data) {
             var promise = $q(function (resolve, reject) {
-              FirebaseService.getRef().changeEmail(data, function (error, data) {
+              // change account email
+              FirebaseService.getRef().changeEmail(data, function (error) {
                 if (error) {
                   reject(error);
                 }
                 else {
-                  resolve(data);
+                  // change profile email
+                  service.getProfile().$loaded()
+                    .then(function (profile) {
+                      profile.email = data.newEmail;
+                      profile.$save()
+                        .then(function (ref) {
+                          resolve(ref);
+                        })
+                        .catch(function (error) {
+                          reject(error);
+                        });
+                    })
+                    .catch(function (error) {
+                      reject(error);
+                    });
                 }
               });
             });
@@ -131,12 +164,12 @@
 
           changePassword: function (data) {
             var promise = $q(function (resolve, reject) {
-              FirebaseService.getRef().changeEmail(data, function (error, data) {
+              FirebaseService.getRef().changePassword(data, function (error) {
                 if (error) {
                   reject(error);
                 }
                 else {
-                  resolve(data);
+                  resolve(true);
                 }
               });
             });
@@ -146,17 +179,17 @@
 
           resetPassword: function (data) {
             var promise = $q(function (resolve, reject) {
-              FirebaseService.getRef().changeEmail(data, function (error, data) {
+              FirebaseService.getRef().changeEmail(data, function (error) {
                 if (error) {
                   reject(error);
                 }
                 else {
-                  resolve(data);
+                  resolve(true);
                 }
               });
             });
 
-            return promise
+            return promise;
           }
 
         };
@@ -166,7 +199,7 @@
           if (authData) {
             // user logged in
             if (service.isAdmin === undefined) {
-              FirebaseService.getRef().child('secrets/admin').once('value', function () {
+              FirebaseService.getRef().child('secrets/admin').once('value', function (data) { 
                 service.isAdmin = true;
                 console.log('Logged in as admin.');
               }, function () {
@@ -177,8 +210,13 @@
           }
           else {
             // user logged out
+            if (service.user) {
+              service.user.$destroy();
+              service.user = undefined;
+            }
             service.isAdmin = undefined;
             console.log('Logged out.');
+            $state.go('login');
           }
         };
 

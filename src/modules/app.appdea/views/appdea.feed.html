@@ -1,14 +1,14 @@
-<div ng-controller="AppdeaCtrl as vm" layout="column">
+<div ng-controller="AppdeaCtrl as vm" layout="column" class="content-padding">
   <div ng-if="!vm.feedError" layout="column" class="appdea-create-container">
     <form name="vm.appdeaCreateForm" ng-submit="vm.appdeaCreateForm.$valid && vm.create()">
       <md-card class="appdea-creator">
         <md-card-content>
           <div layout="column">
-            <md-input-container>
+            <md-input-container class="no-m">
               <label for="title">Appdea Name</label>
               <input id="title" name="title" type="text" ng-model="vm.newAppdea.title" required />
             </md-input-container>
-            <md-input-container class="md-block" style="height:auto;">
+            <md-input-container class="md-block no-m" style="height:auto;">
               <label for="description">Tell us more...</label>
               <textarea id="description" name="description" type="text" ng-model="vm.newAppdea.description" rows="5" columns="1" md-maxlength="500" style="max-height:145px;overflow-y:auto;"
               required></textarea>
@@ -17,7 +17,7 @@
         </md-card-content>
         <md-card-footer class="no-padding-t" layout="row" layout-xs="column">
           <div layout="row" layout-align="start center" layout-align-xs="stretch center" flex>
-            <md-input-container flex>
+            <md-input-container class="no-m" flex>
               <label for="status">Status</label>
               <md-select id="status" name="status" ng-model="vm.newAppdea.status" required>
                 <md-option ng-repeat="s in vm.status" value="{{s.value}}" ng-bind="s.name"></md-option>
