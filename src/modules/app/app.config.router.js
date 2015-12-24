@@ -24,7 +24,8 @@
           .state('account', {
             url: '/account?section',
             templateUrl: 'modules/app.user/views/account.html',
-            requiresLogin: true
+            requiresLogin: true,
+            hasSidenav: true,
           });
 
 

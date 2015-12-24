@@ -133,21 +133,6 @@ md-toolbar, footer {
   animation-delay: 1s;
 }
 
-md-sidenav {
-  transition: all 0.5s;
-  // animation-duration: .5s;
-  // animation-delay: 1s;
-}
-
-.md-sidenav-menu .menu-heading {
-  color: @brand-primary;
-}
-
-.md-sidenav-menu .md-button.active, .md-sidenav-menu .md-button:hover, .md-sidenav-menu .md-button:focus {
-  color: white;
-  background: @brand-primary;
-}
-
 .animate-fade.ng-enter {
   position: relative;
   animation: fadeIn 1s;
@@ -210,6 +195,27 @@ md-sidenav {
   min-width: 250px;
   max-width: 250px;
   width: 250px;
+}
+
+md-sidenav {
+  // transition: all 0.5s;
+  // animation-duration: .5s;
+  // animation-delay: 1s;
+}
+
+md-sidenav:not(.md-locked-open) {
+  padding-top: @toolbar-height;
+  // animation-duration: .5s;
+  // animation-delay: 1s;
+}
+
+.md-sidenav-menu .menu-heading {
+  color: @brand-primary;
+}
+
+.md-sidenav-menu .md-button.active, .md-sidenav-menu .md-button:hover, .md-sidenav-menu .md-button:focus {
+  color: white;
+  background: @brand-primary;
 }
 
 

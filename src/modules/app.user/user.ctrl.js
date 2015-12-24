@@ -3,8 +3,8 @@
   'use strict';
 
   angular.module('app.user')
-    .controller('UserCtrl', ['User', 'Appdea', '$state', '$scope', 'FirebaseService', '$mdDialog', '$location',
-      function (User, Appdea, $state, $scope, FirebaseService, $mdDialog, $location) {
+    .controller('UserCtrl', ['User', 'Appdea', '$state', '$scope', 'FirebaseService', '$mdDialog', '$mdSidenav', '$location',
+      function (User, Appdea, $state, $scope, FirebaseService, $mdDialog, $mdSidenav, $location) {
         var vm = this; // view model
         
         vm.sidenav = {
@@ -212,6 +212,7 @@
 
         vm.onSectionSelected = function (section) {
           vm.sidenav.selectedSection = section;
+          $mdSidenav('sidenav-main').close();
           // $location.search({ section: vm.sidenav.sections[0].children.indexOf(section) });
         }
 

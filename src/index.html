@@ -124,6 +124,7 @@
   
   <md-toolbar class="md-hue-2 md-whiteframe-1dp toolbar-fixed animated fadeInDown">
     <div class="md-toolbar-tools" layout="row">
+      <md-button ng-if="vm.hasSidenav() && vm.showSidenavToggle()" ng-click="vm.toggleSidenav()" class="md-icon-button"><md-icon>menu</md-icon></md-button>
       <md-button ui-sref="app">
         <div layout="row" layout-align="start center" class="app-header-title">
           <div hide-xs>L</div>
