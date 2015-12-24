@@ -29,7 +29,7 @@
           onSelect: '=',
           selectedSection: '='
         },
-        controller: function ($scope) {
+        controller: ['$scope', function ($scope) {
           $scope.isSelected = function (section) {
             return $scope.selectedSection === section;
           }
@@ -40,7 +40,7 @@
               $scope.onSelect($scope.selectedSection);
             }
           }
-        }
+        }]
       };
     })
 
