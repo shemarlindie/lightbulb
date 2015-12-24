@@ -30,14 +30,6 @@
           selectedSection: undefined
         }
 
-        var sectionIndex = $location.search()['section'];
-        if (sectionIndex >= 0 && sectionIndex < vm.sidenav.sections[0].children.length) {
-          vm.sidenav.selectedSection = vm.sidenav.sections[0].children[sectionIndex];
-        }
-        else {
-          vm.sidenav.selectedSection = vm.sidenav.sections[0].children[0];
-        }
-
         vm.signingUp = false;
         vm.loggingIn = false;
         vm.updatingProifle = false;
@@ -64,20 +56,32 @@
         vm.passwordChange = {};
         vm.user = undefined;
 
-        var authCallback = function (authData) {
-          if (authData) {
-            vm.user = User.getProfile();
+        vm.init = function () {
+          // keep track of user auth status  
+          var authCallback = function (authData) {
+            if (authData) {
+              vm.user = User.getProfile();
+            }
+            else {
+              vm.user = undefined;
+            }
+          }
+
+          FirebaseService.onAuth(authCallback);
+
+          $scope.$on('$destroy', function () {
+            FirebaseService.offAuth(authCallback);
+          });
+          
+          // select section specified by the url on first load
+          var secIndex = $location.search()['section'];
+          if (secIndex >= 0 && secIndex < vm.sidenav.sections[0].children.length) {
+            vm.onSectionSelected(vm.sidenav.sections[0].children[secIndex]);
           }
           else {
-            vm.user = undefined;
+            vm.onSectionSelected(vm.sidenav.sections[0].children[0]);
           }
         }
-
-        FirebaseService.onAuth(authCallback);
-
-        $scope.$on('$destroy', function () {
-          FirebaseService.offAuth(authCallback);
-        });
 
         vm.saveProfile = function () {
           vm.updatingProfile = true;
@@ -212,10 +216,20 @@
 
         vm.onSectionSelected = function (section) {
           vm.sidenav.selectedSection = section;
+          
+          // close sidenav if not locked open
           $mdSidenav('sidenav-main').close();
-          // $location.search({ section: vm.sidenav.sections[0].children.indexOf(section) });
+          
+          // update url to remember section
+          var secIndex = vm.sidenav.sections[0].children.indexOf(section);
+          $state.go('.', { section: secIndex > -1 ? secIndex : 0 }, { notify: false });
         }
 
+
+        // ---------------------
+        // INITIALIZATION
+        // ---------------------
+        vm.init();
       }]);
 
 })(angular);
