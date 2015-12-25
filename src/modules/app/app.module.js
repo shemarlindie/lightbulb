@@ -31,9 +31,10 @@
 
     .run(function () {
       // remove preloader
-      $('#preloader').fadeOut(1000, function () {
-        $(this).remove();
-      });
+      var preloader = $('#preloader').addClass('animated fadeOut');
+      setTimeout(function (preloader) {
+        preloader.remove()
+      }, 1200, preloader);
     });
 
 })(angular);

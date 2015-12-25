@@ -51,6 +51,11 @@ a:hover {
   padding-bottom: @footer-height;  
 }
 
+#preloader {
+  animation-duration: 1s;
+  animation-timing-function: linear;
+}
+
 .toolbar-fixed {
   position: fixed;
   top: 0;
@@ -195,12 +200,6 @@ md-sidenav {
   min-width: 250px;
   max-width: 250px;
   width: 250px;
-}
-
-md-sidenav {
-  // transition: all 0.5s;
-  // animation-duration: .5s;
-  // animation-delay: 1s;
 }
 
 md-sidenav:not(.md-locked-open) {
