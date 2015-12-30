@@ -17,8 +17,13 @@
             notWhileLoggedIn: true
           })
           .state('login', {
-            url: '/login',
+            url: '/login?redirect',
             templateUrl: 'modules/app.user/views/login.html',
+            notWhileLoggedIn: true
+          })
+          .state('password-reset', {
+            url: '/password-reset',
+            templateUrl: 'modules/app.user/views/password.reset.html',
             notWhileLoggedIn: true
           })
           .state('account', {
@@ -57,7 +62,13 @@
           function (event, toState, toParams, fromState, fromParams) {
             if (toState.requiresLogin && !User.isAuthenticated()) {
               event.preventDefault();
-              $state.go('login');
+
+              $state.go('login', {
+                redirect: encodeURIComponent(JSON.stringify({
+                  name: toState.name,
+                  params: toParams
+                }))
+              });
             }
 
             if (toState.notWhileLoggedIn && User.isAuthenticated()) {

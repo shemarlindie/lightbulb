@@ -179,7 +179,7 @@
 
           resetPassword: function (data) {
             var promise = $q(function (resolve, reject) {
-              FirebaseService.getRef().changeEmail(data, function (error) {
+              FirebaseService.getRef().resetPassword(data, function (error) {                
                 if (error) {
                   reject(error);
                 }

@@ -7,6 +7,7 @@ var less = require('gulp-less');
 var minifyCss = require('gulp-minify-css');
 var autoPrefixer = require('gulp-autoprefixer');
 var uglify = require('gulp-uglify');
+var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
 
 // UTILITIES
@@ -27,7 +28,7 @@ var COPY_FILES = [
   './src/favicon/**/*.*',
   './src/fonts/**/*.*',
   './src/modules/**/*.*',
-  '!./src/modules/**/*.js',
+  '!./src/modules/**/*.js', // exclude; copied during minification
   './src/browserconfig.xml',
   './src/favicon.ico',
   './src/index.html'
@@ -37,9 +38,11 @@ var COPY_FILES = [
 gulp.task('less', function () {
   gulp.src('./src/less/style.less')
     .pipe(plumber())
+    .pipe(sourcemaps.init())
     .pipe(less())
     .pipe(autoPrefixer({ browsers: ['> 5%', 'last 5 versions'], cascade: false }))
     .pipe(minifyCss())
+    .pipe(sourcemaps.write('./sourcemaps'))
     .pipe(gulp.dest('./src/css'))
     .pipe(browserSync.stream());
 });
@@ -56,23 +59,17 @@ gulp.task('copy', function () {
 gulp.task('minify-js', function () {
   gulp.src('./src/modules/**/*.js', { base: './src/modules' })
     .pipe(plumber())
+    .pipe(sourcemaps.init())
     .pipe(uglify())
+    .pipe(sourcemaps.write('./sourcemaps'))
     .pipe(gulp.dest(DIST_DIR + '/modules'));
 })
-
-// gulp.task('ts-migrate', function () {
-//   gulp.src('./src/modules/**/*.ts')
-//     .pipe(rename(function (path) {
-//       path.extname = '.js';
-//     }))
-//     .pipe(gulp.dest('./src/modules'));
-// });
 
 //  BROWSER SYNC SERVER
 gulp.task('browser-sync', function () {
   browserSync.init({
     server: {
-      baseDir: './'
+      baseDir: './src'
     }
   });
 });
@@ -87,6 +84,9 @@ gulp.task('watch', function () {
 // GULP DEFAULT TASK
 gulp.task('default', ['build', 'watch']);
 
+// BUILD, WATCH and AUTO-RELOAD
+gulp.task('start', ['build', 'watch', 'browser-sync']);
+
 // BUILD TASKS
-gulp.task('build', ['clean', 'less']);
+gulp.task('build', ['less']);
 gulp.task('dist', ['clean', 'less', 'minify-js', 'copy']);

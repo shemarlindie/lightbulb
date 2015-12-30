@@ -34,7 +34,7 @@
       var preloader = $('#preloader').addClass('animated fadeOut');
       setTimeout(function (preloader) {
         preloader.remove()
-      }, 1200, preloader);
+      }, 1000, preloader);
     });
 
 })(angular);

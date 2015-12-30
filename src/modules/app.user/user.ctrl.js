@@ -3,8 +3,8 @@
   'use strict';
 
   angular.module('app.user')
-    .controller('UserCtrl', ['User', 'Appdea', '$state', '$scope', 'FirebaseService', '$mdDialog', '$mdSidenav', '$location',
-      function (User, Appdea, $state, $scope, FirebaseService, $mdDialog, $mdSidenav, $location) {
+    .controller('UserCtrl', ['User', 'Appdea', '$state', '$stateParams', '$scope', 'FirebaseService', '$mdDialog', '$mdSidenav', '$location',
+      function (User, Appdea, $state, $stateParams, $scope, FirebaseService, $mdDialog, $mdSidenav, $location) {
         var vm = this; // view model
         
         vm.sidenav = {
@@ -38,20 +38,26 @@
         vm.changingEmail = false;
         vm.removingAcccount = false;
         vm.changingPassword = false;
+        vm.resettingPassword = false;
+
         vm.signupData = {};
         vm.loginData = {
           rememberMe: true
         };
+        vm.passwordResetData = {};
+
         vm.loginError = undefined;
         vm.signupError = undefined;
         vm.profileError = undefined;
         vm.emailError = undefined;
         vm.removeAccountError = undefined;
         vm.passwordChangeError = undefined;
+        vm.passwordResetError = undefined;
 
         vm.profileMsg = undefined;
         vm.emailMsg = undefined;
         vm.passwordChangeMsg = undefined;
+        vm.passwordResetMsg = undefined;
 
         vm.userEdit = {};
         vm.userDelete = {};
@@ -185,6 +191,26 @@
             });
         }
 
+        vm.resetPassword = function () {
+          vm.resettingPassword = true;
+          vm.passwordResetError = undefined;
+          vm.passwordResetMsg = undefined;
+
+          User.resetPassword(vm.passwordResetData)
+            .then(function () {
+              vm.passwordResetForm.$setPristine();
+              vm.passwordResetForm.$setUntouched();
+              vm.passwordResetMsg = 'Password reset email sent to ' + vm.passwordResetData.email;
+              vm.passwordResetData = {};
+            })
+            .catch(function (error) {
+              vm.passwordResetError = error;
+            })
+            .finally(function () {
+              vm.resettingPassword = false;
+            });
+        }
+
         vm.signup = function () {
           vm.signingUp = true;
           User.create(vm.signupData)
@@ -198,12 +224,18 @@
               vm.signingUp = false;
             });
         }
-
+        
         vm.login = function () {
           vm.loggingIn = true;
           User.login(vm.loginData)
             .then(function (data) {
-              $state.go('app');
+              if ($stateParams.redirect) {
+                var state = JSON.parse(decodeURIComponent($stateParams.redirect));
+                $state.go(state.name, state.params);
+              }
+              else {
+                $state.go('app');
+              }
             })
             .catch(function (error) {
               vm.loginError = error;

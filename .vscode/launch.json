@@ -1,0 +1,19 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch with sourcemaps",
+			"type": "chrome",
+			"request": "launch",
+			"url": "http://localhost/lightbulb75/src/#/",
+			"sourceMaps": false,
+			"webRoot": "./src"
+		},
+		{
+			"name": "Attach",
+			"type": "chrome",
+			"request": "attach",
+			"port": 9222
+		}
+	]
+}
