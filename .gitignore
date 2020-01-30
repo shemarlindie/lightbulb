@@ -107,3 +107,5 @@ node_modules
 # Distribution
 dist
 build
+
+.idea

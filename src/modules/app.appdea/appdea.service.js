@@ -13,7 +13,7 @@
             if (this.appdeas === undefined) {
               // console.log('connecting appdea service');
               
-              var ref = FirebaseService.getRef().child('appdeas');
+              var ref = FirebaseService.getDbRef().child('appdeas');
               this.appdeas = $firebaseArray(ref);
             }
           },
