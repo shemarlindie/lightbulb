@@ -1,6 +1,8 @@
 # Lightbulb #
 An idea board built with AngularJS and Firebase.
 
+![Lightbulb app screenshot](./screenshots/app.png)
+
 #### REQUIREMENTS: ####
 * Install Node
 * Install bower globally: npm install -g bower
