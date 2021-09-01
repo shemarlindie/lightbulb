@@ -1,0 +1,26 @@
+{
+  "rules": {
+    "appdeas": {
+      ".read": "auth !== null && (root.child('users/' + auth.uid + '/secret').val() === root.child('secrets/user').val() || root.child('users/' + auth.uid + '/secret').val() === root.child('secrets/admin').val())",
+      ".write": "auth !== null && (root.child('users/' + auth.uid + '/secret').val() === root.child('secrets/user').val() || root.child('users/' + auth.uid + '/secret').val() === root.child('secrets/admin').val())"
+    },
+
+    "users": {
+      ".read": "auth !== null && (root.child('users/' + auth.uid + '/secret').val() === root.child('secrets/admin').val())",
+      ".write": "auth !== null && (root.child('users/' + auth.uid + '/secret').val() === root.child('secrets/admin').val())",
+
+      "$uid": {
+        ".read" : "auth !== null && (auth.uid === $uid || root.child('users/' + auth.uid + '/secret').val() === root.child('secrets/user').val())",
+        ".write": "!root.child('users').hasChild($uid) || (auth !== null && auth.uid === $uid)"
+      }
+    },
+
+    "secrets": {
+      ".read": "auth !== null && (root.child('users/' + auth.uid + '/secret').val() === root.child('secrets/admin').val())",
+
+      "user": {
+        ".read": "auth !== null && (root.child('users/' + auth.uid + '/secret').val() === root.child('secrets/user').val())"
+      }
+    }
+  }
+}

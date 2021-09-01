@@ -1,0 +1,6 @@
+{
+  "secrets" : {
+    "admin" : "iamafirebaseadmin",
+    "user" : "ilovefirebase"
+  }
+}
