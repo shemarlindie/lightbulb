@@ -1,10 +1,18 @@
 # Lightbulb #
 An idea board built with AngularJS and Firebase.
 
+**Demo:** https://lightbulb.shemarlindie.com
+
+**Signup Secrets:**
+
+Admin: `iamafirebaseadmin`
+
+User: `ilovefirebase`
+
 ![Lightbulb app screenshot](./screenshots/app.png)
 
 #### REQUIREMENTS: ####
-* Install Node
+* Install node.js v8.x (may or may not work with a newer version)
 * Install bower globally: npm install -g bower
 * Install gulp globally: npm install -g gulp
 
@@ -54,9 +62,3 @@ _(The project folder must be in your web root.)_
 
 #### NOTE ####
 Unless stated otherwise, all commands must be run in the project's root folder.
-
-## Signup Secrets ##
-
-Admin: `iamafirebaseadmin`
-
-User: `ilovefirebase`
