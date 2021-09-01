@@ -11,9 +11,11 @@
         var authCallback = function (authData) {
           if (authData) {
             vm.user = User.getProfile();
+            $state.go('app')
           }
           else {
             vm.user = undefined;
+            $state.go('login')
           }
         }
 

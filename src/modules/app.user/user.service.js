@@ -19,7 +19,7 @@
             if (uid) {
               return $firebaseObject(FirebaseService.getDbRef().child('users/' + uid));
             } else {
-              var auth = $firebaseAuth();
+              var auth = $firebaseAuth().$getAuth();
               if (auth && !this.user) {
                 this.user = $firebaseObject(FirebaseService.getDbRef().child('users/' + auth.uid));
               }
