@@ -1,7 +1,7 @@
 {
-  "name": "Lightbulb75",
+  "name": "Lightbulb",
   "version": "1.0.0",
-  "description": "A repository of Version75 ideas.",
+  "description": "A repository of ideas.",
   "main": "",
   "dependencies": {},
   "devDependencies": {
@@ -21,9 +21,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/shemarcl/lightbulb75.git"
+    "url": "git@github.com:shemarlindie/lightbulb.git"
   },
   "author": "",
   "license": "",
-  "homepage": "https://bitbucket.org/shemarcl/lightbulb75#readme"
+  "homepage": "https://github.com/shemarlindie/lightbulb"
 }
