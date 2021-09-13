@@ -3,6 +3,8 @@ An idea board built with AngularJS and Firebase.
 
 **Demo:** https://lightbulb.shemarlindie.com
 
+User -- `demo` : `Gir@ff3s`
+
 **Signup Secrets:**
 
 Admin: `iamafirebaseadmin`
